@@ -1,14 +1,8 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-let name:string = "Hadis";
-
-function App() {
-  return (
-    <div >
-      {name}
-    </div>
-  );
-}
+const App: React.FC = () => {
+  return <div></div>;
+};
 
 export default App;

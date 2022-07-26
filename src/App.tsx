@@ -1,6 +1,7 @@
 import React, { useState} from "react";
 import "./App.css";
 import InputFiled from "./components/inputFiled";
+import TodoList from "./components/todoList";
 import { Task } from "./model";
 
 const App: React.FC = () => {
@@ -27,9 +28,7 @@ const App: React.FC = () => {
     <div className="App">
       <span className="heading">taskify</span>
       <InputFiled todo={todo} setTodo={setTodo} clickHandle={clickHandle} />
-      {todos.map((task) => (
-        <p>{task.todo}</p>
-      ))}
+      <TodoList todos={todos} setTodos={setTodos}/>
     </div>
   );
 };

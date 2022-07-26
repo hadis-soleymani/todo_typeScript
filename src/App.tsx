@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import "./App.css";
 import InputFiled from "./components/inputFiled";
 import { Task } from "./model";
@@ -6,7 +6,7 @@ import { Task } from "./model";
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
   const [todos, setTodos] = useState<Task[]>([]);
-
+ 
   const clickHandle = (e: React.FormEvent) => {
     e.preventDefault();
     if (todo) {
@@ -27,7 +27,9 @@ const App: React.FC = () => {
     <div className="App">
       <span className="heading">taskify</span>
       <InputFiled todo={todo} setTodo={setTodo} clickHandle={clickHandle} />
-      {todos.map(task=> <p>{task.todo}</p>)}
+      {todos.map((task) => (
+        <p>{task.todo}</p>
+      ))}
     </div>
   );
 };

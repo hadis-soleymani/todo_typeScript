@@ -27,6 +27,7 @@ const App: React.FC = () => {
     <div className="App">
       <span className="heading">taskify</span>
       <InputFiled todo={todo} setTodo={setTodo} clickHandle={clickHandle} />
+      {todos.map(task=> <p>{task.todo}</p>)}
     </div>
   );
 };

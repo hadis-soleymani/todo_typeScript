@@ -4,11 +4,12 @@ import "./style.css";
 interface Props {
   todo: string;
   setTodo: React.Dispatch<React.SetStateAction<string>>;
+  clickHandle: (e: React.FormEvent) => void;
 }
 
-const InputFiled: React.FC<Props> = ({ todo, setTodo }) => {
+const InputFiled: React.FC<Props> = ({ todo, setTodo, clickHandle }) => {
   return (
-    <form className="input">
+    <form className="input" onSubmit={clickHandle}>
       <input
         placeholder="add task hear ..."
         type="input"

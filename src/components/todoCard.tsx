@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Task } from "../model";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
@@ -17,9 +17,12 @@ const TodoCard: React.FC<Props> = ({ todo, setTodos, todos }) => {
       )
     );
   };
+  const deleteHandler = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id != id));
+  };
 
   return (
-    <div className="todo">
+    <form className="todo">
       {todo.isDone ? (
         <s className="todo__text">{todo.todo}</s>
       ) : (
@@ -30,12 +33,12 @@ const TodoCard: React.FC<Props> = ({ todo, setTodos, todos }) => {
         <AiFillEdit />
       </span>
       <span className="todo__icon">
-        <AiFillDelete />
+        <AiFillDelete onClick={() => deleteHandler(todo.id)} />
       </span>
       <span className="todo__icon">
         <BsCheckLg onClick={() => doneHandler(todo.id)} />
       </span>
-    </div>
+    </form>
   );
 };
 

@@ -5,21 +5,22 @@ interface Todo {
   todo: string;
   isDone: boolean;
 }
-const initialState=[{
-
-  id: 0,
-  todo: 't',
-  isDone: false,
-}]
-
+const initialState = [
+  {
+    id: 0,
+    todo: "t",
+    isDone: false,
+  },
+];
 
 type ACTIONTYPE =
   | { type: "remove"; payload: number }
   | { type: "add"; payload: string }
+  | { type: "edit"; payload: {id:number, todo:string} }
   | { type: "done"; payload: number };
 
 const TodoReducer = (state: Todo[], action: ACTIONTYPE) => {
-  console.log(state)
+  console.log(state);
   switch (action.type) {
     case "add":
       return [
@@ -35,6 +36,12 @@ const TodoReducer = (state: Todo[], action: ACTIONTYPE) => {
         todo.id === action.payload ? { ...todo, isDone: !todo.isDone } : todo
       );
 
+    case "edit":
+      return state.map((todo) =>
+        todo.id === action.payload.id
+          ? { ...todo, todo: action.payload.todo }
+          : todo
+      );
     default:
       return state;
   }
@@ -49,20 +56,19 @@ export const todoContext = createContext<{
   dispatch: React.Dispatch<ACTIONTYPE>;
 }>({ state: [], dispatch: () => {} });
 
-
 // export const todoContext = createContext<Todo[] | null>(null);
 
-type d ={ 
-  todosState: Todo[];  
+type d = {
+  todosState: Todo[];
   dispatch: React.Dispatch<ACTIONTYPE>;
- }
+};
 
 const TodoContextProvider = (props: ProviderProps) => {
-  const [state, dispatch] = useReducer(TodoReducer,[]);
+  const [state, dispatch] = useReducer(TodoReducer, []);
 
   return (
     <todoContext.Provider value={{ state, dispatch }}>
-     {props.children}
+      {props.children}
     </todoContext.Provider>
   );
 };

@@ -17,7 +17,7 @@ const App: React.FC = () => {
     <div className="App">
       <span className="heading">taskify</span>
       <InputFiled />
-      <TodoList todos={todos} setTodos={setTodos}/>
+      <TodoList />
     </div>
     </TodoContextProvider>
   );

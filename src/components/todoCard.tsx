@@ -4,16 +4,15 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
 import { todoContext } from "../contexts/todoContextProvider";
 
-interface Props {
-  setTodos: React.Dispatch<React.SetStateAction<Task[]>>;
-  todo: Task;
-  todos: Task[];
+
+interface Props{
+  todo:Task;
 }
 
-
-const TodoCard: React.FC<Props> = ({ todo, setTodos, todos }) => {
+const TodoCard: React.FC<Props> = ({ todo}) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(todo.todo);
+  const [todos, setTodos] = useState<Task[]>([]);
 
   const focusInput = useRef<HTMLInputElement>(null);
   const { state, dispatch } = useContext(todoContext);
@@ -22,15 +21,11 @@ const TodoCard: React.FC<Props> = ({ todo, setTodos, todos }) => {
   }, [edit]);
 
   const doneHandler = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      )
-    );
+    dispatch({ type: "done", payload: id })
   };
 
   const deleteHandler = (id: number) => {
-   // dispatch({ type: "remove", payload: id })
+   dispatch({ type: "remove", payload: id })
   //  setTodos(todos.filter((todo) => todo.id != id));
   };
 
@@ -42,9 +37,10 @@ const TodoCard: React.FC<Props> = ({ todo, setTodos, todos }) => {
 
   const submitEdit = (e: React.FormEvent, id: number) => {
     e.preventDefault();
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, todo: editText } : todo))
-    );
+    // setTodos(
+    //   state.map((todo) => (todo.id === id ? { ...todo, todo: editText } : todo))
+    // );
+    dispatch({type:'edit',payload:{id:id, todo:editText}})
     setEdit(false);
   };
 

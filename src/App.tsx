@@ -3,33 +3,23 @@ import "./App.css";
 import InputFiled from "./components/inputFiled";
 import TodoList from "./components/todoList";
 import { Task } from "./model";
+import TodoContextProvider from "./contexts/todoContextProvider";
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
   const [todos, setTodos] = useState<Task[]>([]);
  
-  const clickHandle = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (todo) {
-      setTodos([
-        ...todos,
-        {
-          id: Date.now(),
-          todo,
-          isDone: false,
-        },
-      ]);
-      setTodo("");
-    }
-  };
-  console.log(todos);
+
+
 
   return (
+    <TodoContextProvider>
     <div className="App">
       <span className="heading">taskify</span>
-      <InputFiled todo={todo} setTodo={setTodo} clickHandle={clickHandle} />
+      <InputFiled />
       <TodoList todos={todos} setTodos={setTodos}/>
     </div>
+    </TodoContextProvider>
   );
 };
 

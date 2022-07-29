@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef ,useContext} from "react";
 import { Task } from "../model";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
+import { todoContext } from "../contexts/todoContextProvider";
 
 interface Props {
   setTodos: React.Dispatch<React.SetStateAction<Task[]>>;
@@ -9,12 +10,13 @@ interface Props {
   todos: Task[];
 }
 
+
 const TodoCard: React.FC<Props> = ({ todo, setTodos, todos }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(todo.todo);
 
   const focusInput = useRef<HTMLInputElement>(null);
-
+  const { state, dispatch } = useContext(todoContext);
   useEffect(() => {
     focusInput.current?.focus();
   }, [edit]);
@@ -28,7 +30,8 @@ const TodoCard: React.FC<Props> = ({ todo, setTodos, todos }) => {
   };
 
   const deleteHandler = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id != id));
+   // dispatch({ type: "remove", payload: id })
+  //  setTodos(todos.filter((todo) => todo.id != id));
   };
 
   const editHandler = () => {

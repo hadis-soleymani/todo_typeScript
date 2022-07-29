@@ -1,46 +1,48 @@
-import React, { useState, useEffect, useRef ,useContext} from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+
+//import interface
 import { Task } from "../model";
+
+//icons
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
+
+//context
 import { todoContext } from "../contexts/todoContextProvider";
 
-
-interface Props{
-  todo:Task;
+//define type of Entrance props
+interface Props {
+  todo: Task;
 }
 
-const TodoCard: React.FC<Props> = ({ todo}) => {
+//TodoCard return a react function
+const TodoCard: React.FC<Props> = ({ todo }) => {
+  //define states
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(todo.todo);
-  const [todos, setTodos] = useState<Task[]>([]);
 
+  //create ref for auto focus by press edit
   const focusInput = useRef<HTMLInputElement>(null);
-  const { state, dispatch } = useContext(todoContext);
+
+  //access to dispatch of context
+  const { dispatch } = useContext(todoContext);
+
+  //focus by change edit state
   useEffect(() => {
     focusInput.current?.focus();
   }, [edit]);
 
-  const doneHandler = (id: number) => {
-    dispatch({ type: "done", payload: id })
-  };
-
-  const deleteHandler = (id: number) => {
-   dispatch({ type: "remove", payload: id })
-  //  setTodos(todos.filter((todo) => todo.id != id));
-  };
-
+  //turn on edit text if todo not done
   const editHandler = () => {
     if (!edit && !todo.isDone) {
       setEdit(!edit);
     }
   };
 
+  //change todo text by press enter
   const submitEdit = (e: React.FormEvent, id: number) => {
     e.preventDefault();
-    // setTodos(
-    //   state.map((todo) => (todo.id === id ? { ...todo, todo: editText } : todo))
-    // );
-    dispatch({type:'edit',payload:{id:id, todo:editText}})
+    dispatch({ type: "edit", payload: { id: id, todo: editText } });
     setEdit(false);
   };
 
@@ -63,10 +65,14 @@ const TodoCard: React.FC<Props> = ({ todo}) => {
         <AiFillEdit />
       </span>
       <span className="todo__icon">
-        <AiFillDelete onClick={() => deleteHandler(todo.id)} />
+        <AiFillDelete
+          onClick={() => dispatch({ type: "remove", payload: todo.id })}
+        />
       </span>
       <span className="todo__icon">
-        <BsCheckLg onClick={() => doneHandler(todo.id)} />
+        <BsCheckLg
+          onClick={() => dispatch({ type: "done", payload: todo.id })}
+        />
       </span>
     </form>
   );

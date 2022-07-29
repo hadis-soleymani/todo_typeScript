@@ -1,12 +1,21 @@
 import React, { useRef, useContext, useState } from "react";
+
+//styles
 import "./style.css";
+
+//context
 import { todoContext } from "../contexts/todoContextProvider";
 
 const InputFiled: React.FC = () => {
+  //define state
   const [todo, setTodo] = useState<string>("");
+
+  //create ref for blur(un focus) after press enter
   const inputRef = useRef<HTMLInputElement>(null);
 
+  //access to dispatch of context
   const { dispatch } = useContext(todoContext);
+
   return (
     <form
       className="input"

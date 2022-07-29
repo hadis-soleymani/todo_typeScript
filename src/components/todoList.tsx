@@ -1,17 +1,21 @@
-import React,{useContext} from "react";
-import { Task } from "../model";
+import React, { useContext } from "react";
+
+//components
 import TodoCard from "./todoCard";
-import {todoContext} from '../contexts/todoContextProvider'
 
+//context
+import { todoContext } from "../contexts/todoContextProvider";
 
-
+//TodoList return a react function
 const TodoList: React.FC = () => {
-  const { state, dispatch } = useContext(todoContext);
-  console.log('state:',state)
+  //access to state of context
+  //state is array of todo objects
+  const { state } = useContext(todoContext);
+
   return (
     <div className="todos">
       {state.map((todo) => (
-        <TodoCard key={todo.id}  todo={todo} />
+        <TodoCard key={todo.id} todo={todo} />
       ))}
     </div>
   );

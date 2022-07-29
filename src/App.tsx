@@ -1,24 +1,24 @@
-import React, { useState} from "react";
+import React from "react";
+
+//styles
 import "./App.css";
+
+//components
 import InputFiled from "./components/inputFiled";
 import TodoList from "./components/todoList";
-import { Task } from "./model";
+
+//context provider
 import TodoContextProvider from "./contexts/todoContextProvider";
 
+//App return a react function
 const App: React.FC = () => {
-  const [todo, setTodo] = useState<string>("");
-  const [todos, setTodos] = useState<Task[]>([]);
- 
-
-
-
   return (
     <TodoContextProvider>
-    <div className="App">
-      <span className="heading">taskify</span>
-      <InputFiled />
-      <TodoList />
-    </div>
+      <div className="App">
+        <span className="heading">taskify</span>
+        <InputFiled />
+        <TodoList />
+      </div>
     </TodoContextProvider>
   );
 };
